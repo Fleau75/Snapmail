@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+// Utilisation de l'espace de noms pour l'objet ArgvInput de Symfony Console.
+use Symfony\Component\Console\Input\ArgvInput;
+
+// Définition d'une constante pour marquer le début du script, capturant le temps actuel pour des fins de mesure de performance.
+define('LARAVEL_START', microtime(true));
+
+// Enregistrement de l'autoloader de Composer. Cela permet au script de charger automatiquement les classes nécessaires.
+require __DIR__.'/vendor/autoload.php';
+
+// Amorçage de l'application Laravel et gestion de la commande.
+// Le fichier 'bootstrap/app.php' initialise l'application et retourne une instance de celle-ci.
+$status = (require_once __DIR__.'/bootstrap/app.php')
+    ->handleCommand(new ArgvInput);
+
+// Sortie du script avec le statut retourné par l'application, utilisé typiquement pour indiquer le succès ou l'échec de la commande exécutée.
+exit($status);
